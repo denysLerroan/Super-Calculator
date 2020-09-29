@@ -38,10 +38,10 @@ function handleChangeInputB(b) {
   calculate();
 }
 
-function getCalculationFrom(data_type, calculationFunction, a, b) {
+function getCalculationFrom(type, calculationFunction, a, b) {
   var value = '';
 
-  switch (data_type) {
+  switch (type) {
     case 'a':
       value = calculationFunction(a);
       break;
@@ -66,18 +66,60 @@ function getCalculationFrom(data_type, calculationFunction, a, b) {
 }
 
 function calculate() {
+  var divCalculations = document.querySelector('#calculations');
+
+  var innerCalculations = document.createElement('div');
+  innerCalculations.classList.add('row');
+
   var a = parseInt(globalInputA.value, 10);
   var b = parseInt(globalInputB.value, 10);
 
   for (var i = 0; i < globalCalculations.length; i++) {
     var currentCalculation = globalCalculations[i];
 
-    var data_type = currentCalculation.type;
+    var type = currentCalculation.type;
     var calculationFunction = currentCalculation.calculationFunction;
 
-    var value = getCalculationFrom(data_type, calculationFunction, a, b);
-    console.log(value);
+    var id = 'input_' + currentCalculation.id;
+
+    var value = getCalculationFrom(type, calculationFunction, a, b);
+
+    var div = getMaterializeDiv();
+    var input = getMaterializeInput(id, value);
+    var label = getMaterializeLabel(id, currentCalculation.description);
+
+    div.appendChild(input);
+    div.appendChild(label);
+    innerCalculations.appendChild(div);
   }
+  divCalculations.innerHTML = '';
+  divCalculations.appendChild(innerCalculations);
+}
+
+function getMaterializeDiv() {
+  var div = document.createElement('div');
+  div.classList.add('input-field', 'col', 's12', 'm6', 'l4');
+
+  return div;
+}
+
+function getMaterializeInput(id, value) {
+  var input = document.createElement('input');
+  input.readOnly = true;
+  input.type = 'text';
+  input.id = id;
+  input.value = value;
+
+  return input;
+}
+
+function getMaterializeLabel(id, description) {
+  var label = document.createElement('label');
+  label.for = id;
+  label.textContent = description;
+  label.classList.add('active');
+
+  return label;
 }
 
 start();
