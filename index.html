@@ -3,9 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Super Calculator</title>
+
+    <!-- Compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Super Calculadora</title>
   </head>
   <body>
-    <h1>Super Calculator</h1>
+    <div class="container">
+      <h1 class="page-title">Super Calculadora</h1>
+
+      <div class="row">
+        <div class="input-field col s6">
+          <input autofocus type="number" id="inputA" />
+          <label for="inputA" class="active">Primeiro número (A)</label>
+        </div>
+
+        <div class="input-field col s6">
+          <input autofocus type="number" id="inputB" />
+          <label for="inputB" class="active">Segundo número (A)</label>
+        </div>
+      </div>
+
+      <h2>Cálculos</h2>
+
+      <div id="calculations"></div>
+    </div>
+
+    <script defer src="./js/script.js"></script>
   </body>
 </html>
