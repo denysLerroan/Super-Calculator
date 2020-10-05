@@ -10,19 +10,115 @@ var globalCalculations = [
 
   {
     id: 2,
-    description: 'Subtração (a - b):',
+    description: 'Subtração 1 (a - b):',
     calculationFunction: function subtract(a, b) {
       return a - b;
     },
     type: 'a_b',
   },
+
+  {
+    id: 3,
+    description: 'Subtração 2 (b - a):',
+    calculationFunction: function subtract(b, a) {
+      return b - a;
+    },
+    type: 'b_a',
+  },
+
+  {
+    id: 4,
+    description: 'Multiplicação (a x b):',
+    calculationFunction: function multiply(a, b) {
+      return formatNumber(a * b);
+    },
+    type: 'a_b',
+  },
+
+  {
+    id: 5,
+    description: 'Divisão 1 (a ÷ b):',
+    calculationFunction: function division(a, b) {
+      return getDivisionFrom(a, b);
+    },
+    type: 'a_b',
+  },
+
+  {
+    id: 6,
+    description: 'Divisão 2 (b ÷ a):',
+    calculationFunction: function division(b, a) {
+      return getDivisionFrom(b, a);
+    },
+    type: 'b_a',
+  },
+
+  {
+    id: 7,
+    description: 'Quadrado de a (a²):',
+    calculationFunction: function square(a) {
+      return formatNumber(a ** 2);
+    },
+    type: 'a',
+  },
+
+  {
+    id: 8,
+    description: 'Quadrado de b (b²):',
+    calculationFunction: function square(b) {
+      return formatNumber(b ** 2);
+    },
+    type: 'b',
+  },
+
+  {
+    id: 9,
+    description: 'Divisores inteiros de a:',
+    calculationFunction: function divisorsFrom(a) {
+      return getDivisorsFrom(a);
+    },
+    type: 'a',
+  },
+
+  {
+    id: 10,
+    description: 'Divisores inteiros de b:',
+    calculationFunction: function divisorsFrom(b) {
+      return getDivisorsFrom(b);
+    },
+    type: 'b',
+  },
+
+  {
+    id: 11,
+    description: 'Fatorial de a (a!):',
+    calculationFunction: function factorial(a) {
+      return getFactorialFrom(a);
+    },
+    type: 'a',
+  },
+
+  {
+    id: 12,
+    description: 'Fatorial de b (b!):',
+    calculationFunction: function factorial(b) {
+      return formatNumber(getFactorialRecursive(b));
+    },
+    type: 'b',
+  },
+
+  {
+    id: 13,
+    description: 'Raiz quadrada de a:',
+    calculationFunction: function factorial(a) {
+      return formatNumber(Math.sqrt(a));
+    },
+    type: 'a',
+  },
 ];
 
 var globalInputA = document.querySelector('#inputA');
 var globalInputB = document.querySelector('#inputB');
-
-console.log(globalInputA);
-console.log(globalInputB);
 
 function start() {
   globalInputA.addEventListener('input', handleChangeInputA);
@@ -120,6 +216,52 @@ function getMaterializeLabel(id, description) {
   label.classList.add('active');
 
   return label;
+}
+
+function getDivisionFrom(number1, number2) {
+  if (number2 === 0) {
+    return 'Divisão por 0';
+  }
+
+  return formatNumber((number1 / number2).toFixed(2));
+}
+
+function formatNumber(number) {
+  return new Intl.NumberFormat('pt-BR').format(number);
+}
+
+function getDivisorsFrom(number) {
+  var divisors = [];
+
+  for (var i = 1; i <= number; i++) {
+    if (number % i === 0) {
+      divisors.push(i);
+    }
+  }
+
+  return divisors.join(', ') + ' (' + divisors.length + ')';
+}
+
+function getFactorialFrom(number) {
+  if (number > 21) {
+    return 'Número muito grande.';
+  }
+
+  var factorial = 1;
+
+  for (var i = number; i > 1; i--) {
+    factorial *= i;
+  }
+
+  return formatNumber(factorial);
+}
+
+function getFactorialRecursive(number) {
+  if (number <= 1) {
+    return 1;
+  }
+
+  return number * getFactorialRecursive(number - 1);
 }
 
 start();
